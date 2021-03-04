@@ -6,6 +6,6 @@ The files in this repository are template Airflow DAGs for monitoring your data 
 Contents
 - [AWS Redshift](.)
 - [AWS S3](./AWS_S3/)
-    - [S3 Bucket Monitor](./AWS_S3/s3_bucket_monitor.py)
-    - [S3 Key Monitor](./AWS_S3/s3_key_monitor.py)
+    - [S3 Bucket Monitor](./AWS_S3/)
+    - [S3 Key Monitor](./AWS_S3/)
 - [Snowflake](.)
