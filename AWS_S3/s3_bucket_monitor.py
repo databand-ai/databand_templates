@@ -65,6 +65,8 @@ def monitor_S3_bucket(**context):
     }
 
     bucket_size = 0
+
+    # WARNING: bucket.objects.all() returns objects recursively and can affect performance on large buckets
     for s3_object in bucket.objects.all():
         bucket_size += s3_object.size
         bucket_info["{}-key".format(bucket_name)].append(s3_object.key)
