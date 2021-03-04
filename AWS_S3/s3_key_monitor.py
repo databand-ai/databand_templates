@@ -1,12 +1,7 @@
 import os
-
 from io import StringIO
 from os import path
-from pathlib import Path
-
 import airflow
-import pandas as pd
-
 from airflow import DAG
 from airflow.exceptions import AirflowException
 from airflow.hooks.S3_hook import S3Hook
@@ -16,7 +11,7 @@ from dbnd import log_dataframe, log_metric, task
 from dbnd._core.constants import DbndTargetOperationType
 
 
-# retrive Airflow Variables 
+# Retreive Airflow Variables 
 AWS_CONN_ID = Variable.get("AWS_s3_conn_id")
 DAG_ID = Variable.get("s3_key_monitor_DAG_id")
 S3_KEY_MONITOR_SCHEDULE = Variable.get("s3_key_monitor_schedule")
@@ -60,28 +55,22 @@ def monitor_S3_key(**context):
     - storage class 
     '''
     s3_hook = S3Hook(aws_conn_id=AWS_CONN_ID)
+    MB = 1048576 # conversion factor from Byte to MB
     
-    # target_URIs = Variable.get("s3_monitor_target_URIs").split(',')
     target_path = context["target_s3_path"]
     basename = context["path_basename"]
-    # full_path = os.path.join("s3://", target_bucket, target_key)
     log_metric("target file", target_path)
     boto3_key_object = s3_hook.get_key(key=target_path)
 
     key_metrics = {
-        "{}-size(MB)".format(basename): (boto3_key_object.content_length / 1048576),
+        "{}-size(MB)".format(basename): (boto3_key_object.content_length / MB),
         "{}-content_type".format(basename): boto3_key_object.content_type,
         "{}-last_modified".format(basename): boto3_key_object.last_modified,
         "{}-metadata".format(basename): boto3_key_object.metadata,
         "{}-parts count".format(basename): boto3_key_object.parts_count,
     }
 
-    if boto3_key_object.storage_class:
-        key_metrics[
-            "{}-storage_class".format(basename)
-        ] = boto3_key_object.storage_class
-    else:
-        key_metrics["{}-storage_class".format(basename)] = "standard"
+    key_metrics[storage_key] = boto3_key_object.storage_class if boto3_key_object.storage_class else "s3 standard"
 
     for metric_name, value in key_metrics.items():
         log_metric(metric_name, value)
@@ -107,7 +96,7 @@ def aggregate_and_compare_metrics(**context):
         ))
     log_metric("key_metrics",metrics_list)
 
-    # join the hash tables by targets, place into 
+    # join the hash tables by targets, place into appropriate keys
     aggregated_metrics = {'targets' : basenames}
     for metrics in metrics_list:
         for metric_name, metric_value in metrics.items():
