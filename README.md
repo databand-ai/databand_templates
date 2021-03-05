@@ -4,7 +4,9 @@ The files in this repository are template Airflow DAGs for monitoring your data 
 ![Monitoring Template Overview](https://raw.githubusercontent.com/kalebinn/dbnd_doc_resources/main/MonitoringTemplatesOverview.png)
 
 Contents
-- [AWS Redshift](.)
+- [AWS Redshift](./AWS_Redshift)
+    - [Redshift Database Monitor](./AWS_Redshift)
+    - [Redshift Table Monitor](./AWS_Redshift)
 - [AWS S3](./AWS_S3/)
     - [S3 Bucket Monitor](./AWS_S3/)
     - [S3 Key Monitor](./AWS_S3/)
