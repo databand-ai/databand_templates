@@ -42,14 +42,12 @@ Your Airflow environment should be running Python 3.6+.
     - `dbnd`
     - `dbnd-airflow`
     - `dbnd-airflow-autotracking`
-    - `apache-airflow`
     - `pandas` 
     - `boto3` 
 - [S3 Key Monitor](./s3_key_monitor.py)
     - `dbnd`
     - `dbnd-airflow`
     - `dbnd-airflow-autotracking`
-    - `apache-airflow`
     - `boto3`
 
 ## [Set up Instructions](#setup-instructions)
