@@ -37,7 +37,7 @@ These are the metrics that will be collected out of the box. Additional metrics 
 <sup>*</sup> The `S3 Bucket Monitor`, by default, takes a naive approach to the metrics collection process. This monitor is not recommended for very large buckets. 
 
 ## [Requirements](#requirements)
-Your environment should be running Python 3.6+. 
+Your Airflow environment should be running Python 3.6+. 
 - [S3 Bucket Monitor](./s3_bucket_monitor.py)
     - `dbnd`
     - `dbnd-airflow`
