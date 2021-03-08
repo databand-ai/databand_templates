@@ -117,7 +117,6 @@ def monitor_redshift_db(**op_kwarg):
 
 
 with dag as dbnd_template_dag:
-
     redshift_monitor = PythonOperator(
         task_id="monitor_redshift_cluster", python_callable=monitor_redshift_db
     )
