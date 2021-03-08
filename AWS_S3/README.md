@@ -11,10 +11,10 @@
 
 
 ## [Overview](#overview) 
-Our AWS S3 Monitoring Templates provide out of the box observibility into your S3 buckets and keys. The templates provide visibility into your data lake without any modification to existing data pipelines. They are written as standalone Airflow DAGs but can also be easily extracted to run as additional tasks in other DAGs, if desired. 
+Our AWS S3 Monitoring Templates provide out of the box observibility into your S3 buckets and keys. The templates provide visibility into your data lake without any modification to existing data pipelines. They are written as standalone Airflow DAGs but can also be easily extracted to run as additional tasks in other DAGs, if desired, as a jobs run by another scheduler. 
 
 ## [Scope of Observibility](#scope_of_observibility)
-These are the metrics that will be collected out of the box. Additional metrics can be added with minimal changes.
+These are the metrics that will be collected out of the box. Users can additional metrics with minimal changes.
  
 - [S3 Bucket Monitor](./s3_bucket_monitor.py)<sup>*</sup>
     - Total bucket size (GB)
