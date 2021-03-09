@@ -1,5 +1,5 @@
-![Databand & AWS  S3 Logo](https://raw.githubusercontent.com/kalebinn/dbnd_doc_resources/main/redshift%2Bdbnd.png)
-# AWS S3 Monitoring Templates
+![Databand & AWS Redshift Logo](https://raw.githubusercontent.com/kalebinn/dbnd_doc_resources/main/redshift%2Bdbnd.png)
+# AWS Redshift Monitoring Templates
 - [Overview](#overview)
 - [Scope of Observibility](#scope_of_observibility)
 - [Requirements](#requirements)
@@ -52,7 +52,7 @@ After defining the connection, you must define several Airflow variables. These 
 
 The required variables are different for each monitor. 
 
-#### Variables for [Redshift databse](./redshift_database_monitor.py)
+#### Variables for [Redshift database](./redshift_database_monitor.py)
 | Variable Name | Description | Example |
 |---------------|-------------|---------|
 |`redshift_database_monitor_DAG_id`| `DAG ID` for the monitor | `redshift_database_monitor_DAG_id`: `sample_redshift_db_monitor`|
@@ -60,7 +60,7 @@ The required variables are different for each monitor.
 |`redshift_db_monitor_schedule`| Cron or Airflow schedule to run monitor | `redshift_db_monitor_schedule`:`0 1 * * *`| 
 | `target_redshift_schema` | Target schema to collect table metrics on | `target_redshift_schema`:`public`|
 
-#### Variables for [S3 Key Monitor](./redshift_table_monitor.py)
+#### Variables for [Redshift table monitor](./redshift_table_monitor.py)
 | Variable Name | Description | Example | 
 |---------------|-------------|---------|
 |`redshift_table_monitor_DAG_id`| `DAG ID` for the monitor | `redshift_table_monitor_DAG_id`: `sample_redshift_table_monitor`|
