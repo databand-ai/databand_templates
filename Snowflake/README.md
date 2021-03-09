@@ -71,7 +71,7 @@ The required variables are different for each monitor.
 |`snowflake_connection`| Connection ID of Airflow connection to Snowflake. | `snowflake_connection`:`snowflake_conn_id`|
 |`snowflake_db_monitor_schedule`| Cron or Airflow schedule to run monitor | `snowflake_db_monitor_schedule`:`0 1 * * *`| 
 | `snowflake_db_monitor_target_db` | Target database to collect table metrics on | `snowflake_db_monitor_target_db`:`SNOWFLAKE_SAMPLE_DATA`|
-| `snowflake_db_monitor_target_schema`:`public`|
+| `snowflake_db_monitor_target_schema`|Target schema to collect table metrics on | `snowflake_db_monitor_target_schema`:`PUBLIC`|
     
 ### [3. Starting the DAG](#dag-start)
 The final step is to move the monitor into the `dag` directory of your Airflow environment, and enable the monitoring DAG. 
