@@ -27,12 +27,20 @@ These are the metrics that will be collected out of the box. Users can additiona
         - Largest bucket by object count 
         - Largest bucket by memory size 
 - [S3 Key Monitor](./s3_key_monitor.py)
-    - size (MB)
-    - context type (MIME type)
-    - last modified timestamp
-    - metadata associated with the key
-    - parts count 
-    - storage class 
+    - Keys:
+        - size (MB)
+        - content type (MIME type)
+        - last modified timestamp
+        - metadata associated with the key
+        - parts count 
+        - storage class 
+    - Prefixes:
+        - total size (MB)
+        - last modified timestamp for all keys
+        - size (MB) for all keys
+        - largest key with prefix 
+        - largest prefix by object count
+        - largest prefix by total size
 
 <sup>*</sup> The `S3 Bucket Monitor`, by default, takes a naive approach to the metrics collection process. This monitor is not recommended for very large buckets. 
 
@@ -74,11 +82,15 @@ The required variables are different for each monitor.
 #### Variables for [S3 Key Monitor](./s3_key_monitor.py)
 | Variable Name | Description | Example | 
 |---------------|-------------|---------|
-|`s3_monitor_target_URIs`|URI(s) of key or keys designed for tracking. Multiple keys can be defined with comma separated values. The keys can be contained in different buckets.| `s3_monitor_target_URIs`: `s3://<bucket1>/<path>/<to>/<key1>, s3://<bucket2>/<key2>`|
 |`s3_key_monitor_schedule` | cron or airflow format schedule for monitor to run | `s3_key_monitor_schedule` : `@daily`|
 |`AWS_s3_conn_id` | AWS connection ID defined in the previous step | `AWS_s3_conn_id` : `aws_default`|
 |`s3_key_monitor_DAG_id`| `DAG ID` for the monitor | `s3_key_monitor_DAG_id`: `sample_key_monitor`|
-    
+|***optional variables***|-|-|
+|`s3_monitor_target_keys`|key URI(s) of key or keys designated for tracking. Multiple keys can be defined with comma separated values. The keys can be contained in different buckets.| 
+`s3_monitor_target_keys`: `s3://<bucket1>/<path>/<to>/<key1>,s3://<bucket2>/<key2>`|
+|`s3_monitor_target_prefixes`|key URI(s) of prefix or prefixes designated for tracking. Multiple prefixes can be defined with comma separated values. The prefixes can be in different buckets.| 
+`s3_monitor_target_prefixes`: `s3://<bucket1>/<prefix>,s3://<bucket2>/<path>/<to>/<prefix>`|
+
 ### [3. Starting the DAG](#dag-start)
 The final step is to move the monitor into the `dag` directory of your Airflow environment, and enable the monitoring DAG. 
 
