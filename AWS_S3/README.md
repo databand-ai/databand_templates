@@ -48,15 +48,12 @@ These are the metrics that will be collected out of the box. Users can additiona
 Your Airflow environment should be running Python 3.6+. 
 - [S3 Bucket Monitor](./s3_bucket_monitor.py)
     - `dbnd`
-    - `dbnd-airflow`
     - `dbnd-airflow-autotracking`
-    - `pandas` 
-    - `boto3` 
+    - `pandas`
+
 - [S3 Key Monitor](./s3_key_monitor.py)
     - `dbnd`
-    - `dbnd-airflow`
     - `dbnd-airflow-autotracking`
-    - `boto3`
 
 ## [Set up Instructions](#setup-instructions)
 After installing the requirements, the monitoring templates can be set up in three short steps. 
