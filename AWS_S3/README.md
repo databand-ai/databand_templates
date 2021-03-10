@@ -86,8 +86,8 @@ The required variables are different for each monitor.
 |`AWS_s3_conn_id` | AWS connection ID defined in the previous step | `AWS_s3_conn_id` : `aws_default`|
 |`s3_key_monitor_DAG_id`| `DAG ID` for the monitor | `s3_key_monitor_DAG_id`: `sample_key_monitor`|
 |***optional variables***|-|-|
-|`s3_monitor_target_keys`| key URI(s) of key or keys designated for tracking. Multiple keys can be defined with comma separated values. The keys can be contained in different buckets. |`s3_monitor_target_keys`: `s3://<bucket1>/<path>/<to>/<key1>,s3://<bucket2>/<key2>` |
-|`s3_monitor_target_prefixes`| key URI(s) of prefix or prefixes designated for tracking. Multiple prefixes can be defined with comma separated values. The prefixes can be in different buckets. | `s3_monitor_target_prefixes`: `s3://<bucket1>/<prefix>,s3://<bucket2>/<path>/<to>/<prefix>` |
+|`s3_monitor_target_keys`| URI(s) of key or keys designated for tracking. Multiple keys can be defined with comma separated values. The keys can be contained in different buckets. |`s3_monitor_target_keys`: `s3://<bucket1>/<path>/<to>/<key1>,s3://<bucket2>/<key2>` |
+|`s3_monitor_target_prefixes`| URI(s) of prefix or prefixes designated for tracking. Multiple prefixes can be defined with comma separated values. The prefixes can be in different buckets. | `s3_monitor_target_prefixes`: `s3://<bucket1>/<prefix>,s3://<bucket2>/<path>/<to>/<prefix>` |
 
 ### [3. Starting the DAG](#dag-start)
 The final step is to move the monitor into the `dag` directory of your Airflow environment, and enable the monitoring DAG. 
