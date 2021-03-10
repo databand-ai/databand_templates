@@ -27,12 +27,20 @@ These are the metrics that will be collected out of the box. Users can additiona
         - Largest bucket by object count 
         - Largest bucket by memory size 
 - [S3 Key Monitor](./s3_key_monitor.py)
-    - size (MB)
-    - context type (MIME type)
-    - last modified timestamp
-    - metadata associated with the key
-    - parts count 
-    - storage class 
+    - Keys:
+        - size (MB)
+        - content type (MIME type)
+        - last modified timestamp
+        - metadata associated with the key
+        - parts count 
+        - storage class 
+    - Prefixes:
+        - total size (MB)
+        - last modified timestamp for all keys
+        - size (MB) for all keys
+        - largest key with prefix 
+        - largest prefix by object count
+        - largest prefix by total size
 
 <sup>*</sup> The `S3 Bucket Monitor`, by default, takes a naive approach to the metrics collection process. This monitor is not recommended for very large buckets. 
 
