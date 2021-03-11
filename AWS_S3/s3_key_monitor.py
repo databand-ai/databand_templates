@@ -221,42 +221,42 @@ def aggregate_and_compare_metrics(**context):
 with dag as s3_bucket_template_dag:
 
     target_URIs = TARGET_KEYS.split(",")
-    target_buckets, target_keys = parse_s3_uri(target_URIs)
+    AirflowTasks = []
+    if target_URIs:
+        target_buckets, target_keys = parse_s3_uri(target_URIs)
+        key_basenames = []
 
-    # target_paths = TARGET_PREFIXES.split(",")
+        for URI, key in zip(target_URIs, target_keys):
+            basename = key[-1]
+            key_basenames.append(basename)
+
+            AirflowTasks.append(
+                PythonOperator(
+                    task_id="{}_monitor".format(basename),
+                    python_callable=monitor_S3_key,
+                    op_kwargs={"target_s3_path": URI, "path_basename": basename},
+                )
+            )
+
     target_prefix_paths = TARGET_PREFIXES.split(",")
-    # _, prefixes = parse_s3_uri(target_prefixes)
-    AirflowTasks, key_basenames = [], []
+    if target_prefix_paths:
+        bucket_names, prefixes = parse_s3_uri(target_prefix_paths)
+        prefix_basenames = []
+        for bucket_name, prefix in zip(bucket_names, prefixes):
+            basename = prefix[-1]
+            prefix_basenames.append(basename)
 
-    for URI, key in zip(target_URIs, target_keys):
-        basename = key[-1]
-        key_basenames.append(basename)
-
-        AirflowTasks.append(
-            PythonOperator(
-                task_id="{}_monitor".format(basename),
-                python_callable=monitor_S3_key,
-                op_kwargs={"target_s3_path": URI, "path_basename": basename},
+            AirflowTasks.append(
+                PythonOperator(
+                    task_id="{}_monitor".format(basename),
+                    python_callable=monitor_S3_prefix,
+                    op_kwargs={
+                        "prefix": prefix,
+                        "prefix_basename": basename,
+                        "bucket": bucket_name,
+                    },
+                )
             )
-        )
-
-    bucket_names, prefixes = parse_s3_uri(target_prefix_paths)
-    prefix_basenames = []
-    for bucket_name, prefix in zip(bucket_names, prefixes):
-        basename = prefix[-1]
-        prefix_basenames.append(basename)
-
-        AirflowTasks.append(
-            PythonOperator(
-                task_id="{}_monitor".format(basename),
-                python_callable=monitor_S3_prefix,
-                op_kwargs={
-                    "prefix": prefix,
-                    "prefix_basename": basename,
-                    "bucket": bucket_name,
-                },
-            )
-        )
 
     compare_metrics_task = PythonOperator(
         task_id="aggregate_and_compare_metrics",
