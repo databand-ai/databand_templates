@@ -1,3 +1,5 @@
+import json
+
 from os import path
 
 import airflow
@@ -18,11 +20,11 @@ S3_KEY_MONITOR_SCHEDULE = Variable.get("s3_key_monitor_schedule")
 try:
     TARGET_KEYS = Variable.get("s3_monitor_target_keys")
 except:
-    TARGET_KEYS = ""
+    TARGET_KEYS = None
 try:
     TARGET_PREFIXES = Variable.get("s3_monitor_target_prefixes")
 except:
-    TARGET_PREFIXES = ""
+    TARGET_PREFIXES = None
 
 MB = 1048576  # conversion factor from Byte to MB
 
@@ -72,7 +74,7 @@ def monitor_S3_key(**context):
     key_metrics = {
         "{}-size(MB)".format(basename): (boto3_key_object.content_length / MB),
         "{}-content_type".format(basename): boto3_key_object.content_type,
-        "{}-last_modified".format(basename): boto3_key_object.last_modified,
+        "{}-last_modified".format(basename): boto3_key_object.last_modified.__str__(),
         "{}-metadata".format(basename): boto3_key_object.metadata,
         "{}-parts_count".format(basename): boto3_key_object.parts_count,
     }
@@ -119,7 +121,7 @@ def monitor_S3_prefix(**context):
         obj_sizes.append(obj.size)
         if obj.size >= largest_key_size:
             largest_key_size = obj.size
-        last_modified.append(obj.last_modified)
+        last_modified.append(obj.last_modified.__str__())
 
     mean_key_size = (total_size / num_objs) / MB
 
@@ -220,11 +222,12 @@ def aggregate_and_compare_metrics(**context):
 
 with dag as s3_bucket_template_dag:
 
-    target_URIs = TARGET_KEYS.split(",")
     AirflowTasks = []
-    if target_URIs:
+    prefix_basenames = []
+    key_basenames = []
+    if TARGET_KEYS:
+        target_URIs = TARGET_KEYS.split(",")
         target_buckets, target_keys = parse_s3_uri(target_URIs)
-        key_basenames = []
 
         for URI, key in zip(target_URIs, target_keys):
             basename = key[-1]
@@ -238,10 +241,10 @@ with dag as s3_bucket_template_dag:
                 )
             )
 
-    target_prefix_paths = TARGET_PREFIXES.split(",")
-    if target_prefix_paths:
+    if TARGET_PREFIXES:
+        target_prefix_paths = TARGET_PREFIXES.split(",")
         bucket_names, prefixes = parse_s3_uri(target_prefix_paths)
-        prefix_basenames = []
+
         for bucket_name, prefix in zip(bucket_names, prefixes):
             basename = prefix[-1]
             prefix_basenames.append(basename)
