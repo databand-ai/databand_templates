@@ -6,7 +6,6 @@ import airflow
 
 from airflow import DAG
 from airflow.exceptions import AirflowException
-from airflow.hooks.S3_hook import S3Hook
 from airflow.models import Variable
 from airflow.operators.python_operator import PythonOperator
 from dbnd import log_dataframe, log_metric, task
@@ -14,23 +13,17 @@ from dbnd._core.constants import DbndTargetOperationType
 import boto3 
 
 # put in AWS credentials 
-AWS_ACCESS_KEY_ID = '_your_access_key_id_'
-AWS_SECRET_ACCESS_KEY = '_your_secret_access_key'
-REGION = None
-ENDPOINT_URL = None
+AWS_ACCESS_KEY_ID = Variable.get("access_key_id")
+AWS_SECRET_ACCESS_KEY = Variable.get('secret_access_key')
+REGION = Variable.get('s3_region', default_var=None)
+ENDPOINT_URL = Variable.get('endpoint_url', default_var=None)
 
 # Retreive Airflow Variables
 AWS_CONN_ID = Variable.get("AWS_s3_conn_id")
 DAG_ID = Variable.get("s3_key_monitor_DAG_id")
 S3_KEY_MONITOR_SCHEDULE = Variable.get("s3_key_monitor_schedule")
-try:
-    TARGET_KEYS = Variable.get("s3_monitor_target_keys")
-except:
-    TARGET_KEYS = None
-try:
-    TARGET_PREFIXES = Variable.get("s3_monitor_target_prefixes")
-except:
-    TARGET_PREFIXES = None
+TARGET_KEYS = Variable.get("s3_monitor_target_keys", default_var=None)
+TARGET_PREFIXES = Variable.get("s3_monitor_target_prefixes", default_var=None)
 
 MB = 1048576  # conversion factor from Byte to MB
 
