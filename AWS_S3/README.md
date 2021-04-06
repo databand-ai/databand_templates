@@ -86,6 +86,21 @@ The required variables are different for each monitor.
 |`s3_monitor_target_keys`| URI(s) of key or keys designated for tracking. Multiple keys can be defined with comma separated values. The keys can be contained in different buckets. |`s3_monitor_target_keys`: `s3://<bucket1>/<path>/<to>/<key1>,s3://<bucket2>/<key2>` |
 |`s3_monitor_target_prefixes`| URI(s) of prefix or prefixes designated for tracking. Multiple prefixes can be defined with comma separated values. The prefixes can be in different buckets. | `s3_monitor_target_prefixes`: `s3://<bucket1>/<prefix>,s3://<bucket2>/<path>/<to>/<prefix>` |
 
+#### Variables for [S3 Key Monitor Boto3 Version](./s3_key_monitor_boto3.py)
+This is the recommended version for any non-AWS S3 compatable storage integrations.
+| Variable Name | Description | Example | 
+|---------------|-------------|---------|
+|`s3_key_monitor_schedule` | cron or airflow format schedule for monitor to run | `s3_key_monitor_schedule` : `@daily`|
+|`AWS_s3_conn_id` | AWS connection ID defined in the previous step | `AWS_s3_conn_id` : `aws_default`|
+|`s3_key_monitor_DAG_id`| `DAG ID` for the monitor | `s3_key_monitor_DAG_id`: `sample_key_monitor`|
+|`access_key_id`| Access key ID for S3 storage | `access_key_id`: `<your_access_key_id>`|
+|`secret_access_key`| Secret access key for S3 storage | `secret_access_key`: `<your_secret_access_key>`|
+|***optional variables***|-|-|
+|`s3_monitor_target_keys`| URI(s) of key or keys designated for tracking. Multiple keys can be defined with comma separated values. The keys can be contained in different buckets. |`s3_monitor_target_keys`: `s3://<bucket1>/<path>/<to>/<key1>,s3://<bucket2>/<key2>` |
+|`s3_monitor_target_prefixes`| URI(s) of prefix or prefixes designated for tracking. Multiple prefixes can be defined with comma separated values. The prefixes can be in different buckets. | `s3_monitor_target_prefixes`: `s3://<bucket1>/<prefix>,s3://<bucket2>/<path>/<to>/<prefix>` |
+|`s3_region`| Region of your S3 storage. Default is `None` | `s3_region`: `us-east-2`|
+|`endpoint_url`| Host/Endpoint URL of your S3 storage. Default is `None` | `endpoint_url`: `<your_endpoint_URL>`|
+
 ### [3. Starting the DAG](#dag-start)
 The final step is to move the monitor into the `dag` directory of your Airflow environment, and enable the monitoring DAG. 
 
