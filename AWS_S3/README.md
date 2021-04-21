@@ -1,7 +1,7 @@
 ![Databand & AWS  S3 Logo](https://raw.githubusercontent.com/kalebinn/dbnd_doc_resources/main/s3%2Bdbnd.png)
-# AWS S3 Monitoring Templates
+# AWS S3 Tracking Templates
 - [Overview](#overview)
-- [Scope of Observibility](#scope_of_observibility)
+- [Scope of Observability](#scope_of_observability)
 - [Requirements](#requirements)
 - [Set up Instructions](#setup-instructions)
     - [Defining the AWS Airflow Connection](#airflow-connections)
@@ -11,9 +11,9 @@
 
 
 ## [Overview](#overview) 
-Our AWS S3 Monitoring Templates provide out of the box observibility into your S3 buckets and keys. The templates provide visibility into your data lake without any modification to existing data pipelines. They are written as standalone Airflow DAGs but can also be easily extracted to run as additional tasks in other DAGs, if desired, or as a jobs run by another scheduler. 
+Our AWS S3 Tracking Templates provide out of the box observability into your S3 buckets and keys. The templates provide visibility into your data lake without any modification to existing data pipelines. They are written as standalone Airflow DAGs but can also be easily extracted to run as additional tasks in other DAGs, if desired, or as a jobs run by another scheduler. 
 
-## [Scope of Observibility](#scope_of_observibility)
+## [Scope of Observability](#scope_of_observability)
 These are the metrics that will be collected out of the box. Users can additional metrics with minimal changes.
  
 - [S3 Bucket Monitor](./s3_bucket_monitor.py)<sup>*</sup>

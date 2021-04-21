@@ -1,7 +1,7 @@
 ![Databand & Snowflake](https://raw.githubusercontent.com/kalebinn/dbnd_doc_resources/main/snowflake%2Bdbnd.png)
-# Snowflake Monitoring Templates
+# Snowflake Tracking Templates
 - [Overview](#overview)
-- [Scope of Observibility](#scope_of_observibility)
+- [Scope of Observability](#scope_of_observability)
 - [Requirements](#requirements)
 - [Set up Instructions](#setup-instructions)
     - [Defining the Snowflake Airflow Connection](#airflow-connections)
@@ -11,9 +11,9 @@
 
 
 ## [Overview](#overview) 
-Our Snowflake Monitoring Templates provide out of the box observibility into your Snowflake database and tables without any modification to existing data pipelines. They are written as standalone Airflow DAGs but can be easily extracted to be additional tasks in other DAGs, if desired. 
+Our Snowflake Tracking Templates provide out of the box observability into your Snowflake database and tables without any modification to existing data pipelines. They are written as standalone Airflow DAGs but can be easily extracted to be additional tasks in other DAGs, if desired. 
 
-## [Scope of Observibility](#scope_of_observibility)
+## [Scope of Observability](#scope_of_observability)
 These are the metrics that will be collected out of the box. Additional metrics can be added with minimal changes.
  
 - [Snowflake Table Monitor](./snowflake_table_monitor.py)
