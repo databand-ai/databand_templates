@@ -1,5 +1,5 @@
 ![Databand & Python Logo](https://raw.githubusercontent.com/kalebinn/dbnd_doc_resources/main/python%2Bdbnd.png)
-# Tracking Databases with Python and Databand
+# Tracking Databases and DataFrames with Python and Databand
 - [Overview](#overview)
 - [Scope of Observability](#scope_of_observability)
 - [Requirements](#requirements)
@@ -8,7 +8,7 @@
 
 
 ## [Overview](#overview) 
-Our Python Tracking template allows you to query data from your database, extract the data as a Pandas DataFrame, and track metadata and statistics right in Databand.  
+Our DataFrame Tracking template allows you to query data from your database, extract the data as a Pandas DataFrame, and track metadata and statistics right in Databand. This method will also work wtih Spark DataFrames. 
 
 ## [Scope of Observability](#scope_of_observability)
 These are the metrics that will be collected out of the box. Users can additional metrics with minimal changes.
@@ -46,7 +46,7 @@ QUERY=<query>
 ```
 `DB_CONNECTION` is the SQLAlchemy connection string and `QUERY` is the query you would like to execute.
   
-Finally, you can run the file normally with `Python`, or schedule your Python script with a scheduler (e.g. `crontab`). 
+Finally, you can run the file normally with `Python`, or schedule your Python script with a scheduler (e.g. `crontab` or `Airflow`). 
 
 
 
