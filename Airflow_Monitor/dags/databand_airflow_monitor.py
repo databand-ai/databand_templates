@@ -88,7 +88,7 @@ class MonitorOperator(BashOperator):
 
 
 dag = DAG(
-    dag_id="databand_airflow_monitor",
+    dag_id="databand_airflow_monitor_v2",
     default_args=args,
     schedule_interval="* * * * *",
     dagrun_timeout=None,
