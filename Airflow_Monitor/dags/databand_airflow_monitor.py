@@ -92,10 +92,11 @@ dag = DAG(
     default_args=args,
     schedule_interval="* * * * *",
     dagrun_timeout=None,
-    tags=["project:airflow-monitor"],
     max_active_runs=1,
     catchup=False,
 )
+if hasattr(dag, "tags"):
+    dag.tags = ["project:airflow-monitor"]
 
 with dag:
     # show_env = BashOperator(task_id="env", bash_command="env")
